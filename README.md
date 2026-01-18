@@ -106,22 +106,18 @@ cd AI-Hand-Gesture-Recognition
 - **VcXsrv:** เปิดโปรแกรมเลือก `Multiple windows` > `Start no client` > ติ๊กถูก `Disable access control`
 - **WSL:** เชื่อมต่อกล้องผ่าน `usbipd wsl attach ...`
 
-**🍎 macOS**
-- **Requirement:** [XQuartz](https://www.xquartz.org/)
-- **Setup:** เปิด XQuartz > Preferences > Security > ติ๊กถูก `Allow connections from network clients` > Restart Mac
-- **Command:** รันคำสั่ง `xhost + 127.0.0.1`
-
 **🐧 Linux**
 - **Command:** รันคำสั่ง `xhost +local:docker`
 
+> **⚠️ Note for macOS Users:**
+> Docker Desktop on macOS **does not support** direct USB webcam passthrough.
+> Please use **Option 1: Run Locally** instead.
+> (Docker บน macOS ไม่รองรับการเชื่อมต่อ Webcam โดยตรง โปรดใช้วิธีที่ 1 แทน)
+
 #### 3. Run with Docker Compose (รันโปรแกรม)
-**[TH]** ไฟล์ `docker-compose.yml` ได้เตรียมการตั้งค่าไว้แล้ว (Default สำหรับ Windows)
+**[TH]** ไฟล์ `docker-compose.yml` ได้เตรียมการตั้งค่าไว้แล้ว (Default สำหรับ Windows/Linux)
 
-1. **แก้ไขไฟล์ `docker-compose.yml` (เฉพาะ Mac/Linux)**
-   - **Windows:** ใช้งานได้เลย ไม่ต้องแก้ไข
-   - **macOS:** ต้องเข้าไปปิด Comment ของ Windows และเปิด Comment ของ macOS แทน
-
-2. **รันคำสั่ง**
+**รันคำสั่ง**
    ```bash
    docker-compose up --build
    ```
