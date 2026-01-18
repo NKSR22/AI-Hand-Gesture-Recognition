@@ -91,11 +91,66 @@
 
 ---
 
-## 🐳 Docker Support (Advanced)
-This project includes a `Dockerfile` for containerization. Note that running GUI applications with Webcam access via Docker requires specific X11 forwarding configurations.
+## 🐳 Docker Guide (คู่มือการใช้งานผ่าน Docker)
+**[EN]** Running GUI applications with Webcam access in Docker requires **X11 Forwarding** configuration.
+**[TH]** การรันโปรแกรมที่มี GUI และ Webcam ผ่าน Docker จำเป็นต้องตั้งค่า X11 Forwarding เพื่อให้ Container สามารถแสดงผลหน้าต่างโปรแกรมบนเครื่องของเราได้
 
-1. **Build Image:** `docker build -t ai-hand-tracker .`
-2. **Run Container:** Commands vary by OS (see Docker documentation or previous guides).
+### Step 1: Build Image
+สร้าง Docker Image จาก Dockerfile (ทำเหมือนกันทุก OS)
+```bash
+docker build -t ai-hand-tracker .
+```
+
+### Step 2: Prepare & Run Container (OS Specific Setup)
+
+#### 🪟 Windows (WSL2)
+**Requirement:** [VcXsrv Windows X Server](https://sourceforge.net/projects/vcxsrv/) & [usbipd-win](https://github.com/dorssel/usbipd-win)
+1. **Setup XLaunch (VcXsrv):**
+   - เปิดโปรแกรม **XLaunch**
+   - **Display settings:** เลือก `Multiple windows`
+   - **Client startup:** เลือก `Start no client`
+   - **Extra settings:** **ติ๊กถูก** ที่ `Disable access control` (สำคัญมาก!)
+
+2. **Mount Webcam (เชื่อมต่อกล้องเข้า WSL):**
+   - เปิด PowerShell (Admin) แล้วรัน `usbipd list` เพื่อดู BusID ของกล้อง
+   - รันคำสั่ง: `usbipd wsl attach --busid <BUSID> --distribution Ubuntu` (เปลี่ยน Ubuntu เป็นชื่อ Distro ของคุณ)
+
+3. **Run Command (ใน WSL Terminal):**
+   ```bash
+   # ตั้งค่า IP ของ Display
+   export DISPLAY=$(grep nameserver /etc/resolv.conf | awk '{print $2}'):0
+   
+   # รัน Container
+   docker run -it --rm --device /dev/video0 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix ai-hand-tracker
+   ```
+
+#### 🍎 macOS (Intel / Apple Silicon)
+**Requirement:** [XQuartz](https://www.xquartz.org/)
+1. **Setup XQuartz:**
+   - ติดตั้งและเปิด **XQuartz**
+   - ไปที่ **Preferences** > **Security** > ติ๊กถูก `Allow connections from network clients`
+   - **Restart** เครื่อง Mac หรือ Log out/Log in 1 รอบ
+
+2. **Run Command:**
+   ```bash
+   # อนุญาตการเชื่อมต่อ X11
+   xhost + 127.0.0.1
+   
+   # รัน Container
+   docker run -it --rm -e DISPLAY=host.docker.internal:0 ai-hand-tracker
+   ```
+   *(หมายเหตุ: บน macOS, Docker Desktop ยังไม่รองรับการส่งผ่าน Webcam (USB Passthrough) โดยตรงได้สมบูรณ์ หากกล้องไม่ขึ้น แนะนำให้รันแบบ Local Python หรือใช้ Network Camera)*
+
+#### 🐧 Linux (Ubuntu/Debian)
+วิธีนี้ง่ายที่สุดและรองรับ Native Hardware
+1. **Allow X11 Access:**
+   ```bash
+   xhost +local:docker
+   ```
+2. **Run Command:**
+   ```bash
+   docker run -it --rm --device /dev/video0 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix ai-hand-tracker
+   ```
 
 ---
 **© 2024 Nakarin Sripanya.** All Rights Reserved.
