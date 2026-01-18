@@ -57,13 +57,12 @@
 
 ---
 
-## 🛠 Installation & Usage (การติดตั้งและการใช้งาน)
+## 🛠 Installation & Usage (วิธีการติดตั้งและใช้งาน)
+**Choose one of the following methods:** เลือกใช้วิธีใดวิธีหนึ่ง (แนะนำวิธีที่ 1 สำหรับผู้เริ่มต้น)
 
-### Prerequisites (สิ่งที่ต้องมี)
-- Python 3.9+
-- Webcam
+### 🟢 Option 1: Run Locally (รันบนเครื่องโดยตรง - Recommended)
+**Prerequisites:** Python 3.9+, Webcam
 
-### Steps (ขั้นตอน)
 1. **Clone Repository:**
    ```bash
    git clone https://github.com/NKSR22/AI-Hand-Gesture-Recognition.git
@@ -80,81 +79,30 @@
    python main.py
    ```
 
-### 🎮 How to Use (วิธีใช้งาน)
-- **Heuristic Mode (Default):** The system counts fingers using standard geometry logic (Yellow status).
-- **Training Mode:**
-  1. Pose your hand in front of the camera.
-  2. Press a number key **(0-9)** to label that pose.
-  3. The system switches to **AI Mode** (Green status) and starts recognizing your custom gestures.
-- **Clear Data:** Press **'C'** to reset training data.
-- **Exit:** Click the **EXIT button** or press **'Q'**.
-
 ---
 
-## 🐳 Docker Guide (คู่มือการใช้งานผ่าน Docker)
+### 🐳 Option 2: Run with Docker (รันผ่าน Docker - Advanced)
 **[EN]** Running GUI applications with Webcam access in Docker requires **X11 Forwarding** configuration.
 **[TH]** การรันโปรแกรมที่มี GUI และ Webcam ผ่าน Docker จำเป็นต้องตั้งค่า X11 Forwarding เพื่อให้ Container สามารถแสดงผลหน้าต่างโปรแกรมบนเครื่องของเราได้
 
-### Step 1: Build Image
-สร้าง Docker Image จาก Dockerfile (ทำเหมือนกันทุก OS)
-```bash
-docker build -t ai-hand-tracker .
-```
+#### 1. Setup X11/Display (การเตรียมเครื่อง)
+*ทำการตั้งค่าตาม OS ของท่านก่อน*
 
-### Step 2: Prepare & Run Container (OS Specific Setup)
+**🪟 Windows (WSL2)**
+- **Requirement:** [VcXsrv](https://sourceforge.net/projects/vcxsrv/) & [usbipd-win](https://github.com/dorssel/usbipd-win)
+- **VcXsrv:** เปิดโปรแกรมเลือก `Multiple windows` > `Start no client` > ติ๊กถูก `Disable access control`
+- **WSL:** เชื่อมต่อกล้องผ่าน `usbipd wsl attach ...`
 
-#### 🪟 Windows (WSL2)
-**Requirement:** [VcXsrv Windows X Server](https://sourceforge.net/projects/vcxsrv/) & [usbipd-win](https://github.com/dorssel/usbipd-win)
-1. **Setup XLaunch (VcXsrv):**
-   - เปิดโปรแกรม **XLaunch**
-   - **Display settings:** เลือก `Multiple windows`
-   - **Client startup:** เลือก `Start no client`
-   - **Extra settings:** **ติ๊กถูก** ที่ `Disable access control` (สำคัญมาก!)
+**🍎 macOS**
+- **Requirement:** [XQuartz](https://www.xquartz.org/)
+- **Setup:** เปิด XQuartz > Preferences > Security > ติ๊กถูก `Allow connections from network clients` > Restart Mac
+- **Command:** รันคำสั่ง `xhost + 127.0.0.1`
 
-2. **Mount Webcam (เชื่อมต่อกล้องเข้า WSL):**
-   - เปิด PowerShell (Admin) แล้วรัน `usbipd list` เพื่อดู BusID ของกล้อง
-   - รันคำสั่ง: `usbipd wsl attach --busid <BUSID> --distribution Ubuntu` (เปลี่ยน Ubuntu เป็นชื่อ Distro ของคุณ)
+**🐧 Linux**
+- **Command:** รันคำสั่ง `xhost +local:docker`
 
-3. **Run Command (ใน WSL Terminal):**
-   ```bash
-   # ตั้งค่า IP ของ Display
-   export DISPLAY=$(grep nameserver /etc/resolv.conf | awk '{print $2}'):0
-   
-   # รัน Container
-   docker run -it --rm --device /dev/video0 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix ai-hand-tracker
-   ```
-
-#### 🍎 macOS (Intel / Apple Silicon)
-**Requirement:** [XQuartz](https://www.xquartz.org/)
-1. **Setup XQuartz:**
-   - ติดตั้งและเปิด **XQuartz**
-   - ไปที่ **Preferences** > **Security** > ติ๊กถูก `Allow connections from network clients`
-   - **Restart** เครื่อง Mac หรือ Log out/Log in 1 รอบ
-
-2. **Run Command:**
-   ```bash
-   # อนุญาตการเชื่อมต่อ X11
-   xhost + 127.0.0.1
-   
-   # รัน Container
-   docker run -it --rm -e DISPLAY=host.docker.internal:0 ai-hand-tracker
-   ```
-   *(หมายเหตุ: บน macOS, Docker Desktop ยังไม่รองรับการส่งผ่าน Webcam (USB Passthrough) โดยตรงได้สมบูรณ์ หากกล้องไม่ขึ้น แนะนำให้รันแบบ Local Python หรือใช้ Network Camera)*
-
-#### 🐧 Linux (Ubuntu/Debian)
-วิธีนี้ง่ายที่สุดและรองรับ Native Hardware
-1. **Allow X11 Access:**
-   ```bash
-   xhost +local:docker
-   ```
-2. **Run Command:**
-   ```bash
-   docker run -it --rm --device /dev/video0 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix ai-hand-tracker
-   ```
-
-### 🐳 Docker Compose (Recommended / วิธีแนะนำ)
-**[TH]** เพื่อความสะดวก ไม่ต้องพิมพ์คำสั่งยาวๆ สามารถใช้ `docker-compose` ได้เลย
-ไฟล์ `docker-compose.yml` ได้เตรียมการตั้งค่าไว้แล้ว ให้นักศึกษาเข้าไปแก้ไขไฟล์เพื่อเลือก OS ของตนเองก่อนใช้งาน
+#### 2. Run with Docker Compose (รันโปรแกรม)
+**[TH]** ไฟล์ `docker-compose.yml` ได้เตรียมการตั้งค่าไว้แล้ว (Default สำหรับ Windows)
 
 1. **แก้ไขไฟล์ `docker-compose.yml` (เฉพาะ Mac/Linux)**
    - **Windows:** ใช้งานได้เลย ไม่ต้องแก้ไข
