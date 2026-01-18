@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  ai-hand-app:
+    build: .
+    image: ai-hand-tracker
+    container_name: ai-hand-gesture-container
+
+    # --- Configuration for Windows (WSL2) & Linux [DEFAULT] ---
+    # การตั้งค่าสำหรับนักศึกษาที่ใช้ Windows หรือ Linux (แนะนำ)
+    environment:
+      - DISPLAY=${DISPLAY}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - .:/app # Mount current dir to save/load training data directly
+    devices:
+      - /dev/video0:/dev/video0
+    network_mode: host
+
+    # --- Configuration for macOS ---
+    # สำหรับผู้ใช้ macOS ให้ปิด Comment ด้านบน และเปิด Comment ด้านล่างนี้แทน
+    # environment:
+    #   - DISPLAY=host.docker.internal:0
+    # volumes:
+    #   - .:/app
+
+    # Note for macOS: 
+    # Docker on Mac does not support native USB webcam passthrough easily.
+    # You might need to use a network camera or run the Python script locally.
+
+    stdin_open: true # docker run -i
+    tty: true # docker run -t
