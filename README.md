@@ -85,6 +85,11 @@
 **[EN]** Running GUI applications with Webcam access in Docker requires **X11 Forwarding** configuration.
 **[TH]** การรันโปรแกรมที่มี GUI และ Webcam ผ่าน Docker จำเป็นต้องตั้งค่า X11 Forwarding เพื่อให้ Container สามารถแสดงผลหน้าต่างโปรแกรมบนเครื่องของเราได้
 
+#### 0. Install Docker (ติดตั้ง Docker)
+ก่อนเริ่มใช้งาน ต้องติดตั้ง Docker Desktop บนเครื่องของท่าน
+- **Download:** [Docker Desktop for Windows/Mac/Linux](https://www.docker.com/products/docker-desktop/)
+- **Verify:** เปิด Terminal/CMD แล้วพิมพ์คำสั่ง `docker --version` หากขึ้นเลขเวอร์ชันแสดงว่าติดตั้งสำเร็จ
+
 #### 1. Setup X11/Display (การเตรียมเครื่อง)
 *ทำการตั้งค่าตาม OS ของท่านก่อน*
 
