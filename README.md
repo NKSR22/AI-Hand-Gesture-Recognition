@@ -115,8 +115,23 @@
 
 2. **รันคำสั่ง**
    ```bash
-   docker-compose up --build
    ```
+
+#### 3. Develop & Edit Code (การพัฒนาและแก้ไขโค้ด)
+เนื่องจากเราได้ทำการเชื่อมต่อไฟล์ (Volume Mount) ระหว่างเครื่องจริงกับ Docker ไว้แล้ว (`.:/app`)
+
+**วิธีที่ 1: แก้ไขผ่าน VS Code (แนะนำ)**
+1. เปิดไฟล์ `main.py` บนเครื่องคอมพิวเตอร์ของคุณ (Windows/Mac) ด้วย VS Code หรือ Text Editor ที่ถนัด
+2. แก้ไขโค้ดและกดบันทึก (Save)
+3. รันคำสั่ง `docker-compose restart` เพื่อเริ่มโปรแกรมใหม่ด้วยโค้ดล่าสุด
+
+**วิธีที่ 2: แก้ไขใน Terminal ของ Docker**
+หากต้องการเข้าไปแก้ไขไฟล์ข้างใน Container โดยตรง:
+1. เช็ค ID ของ Container: `docker ps`
+2. เข้าไปใน Container: `docker exec -it ai-hand-gesture-container bash`
+3. ติดตั้ง Nano (ครั้งแรก): `apt-get update && apt-get install -y nano`
+4. แก้ไขไฟล์: `nano main.py` (กด `Ctrl+X` > `Y` > `Enter` เพื่อบันทึก)
+5. รันโปรแกรมใหม่: `python main.py`
 
 ---
 **© 2024 Nakarin Sripanya.** All Rights Reserved.
