@@ -1,0 +1,21 @@
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+.env
+
+# Data files (Optional: Exclude if you want students to train from scratch)
+# hand_data.csv 
+
+# VS Code settings
+.vscode/
+
+# MacOS system files
+.DS_Store
+
+# MediaPipe Task file (Large binary, can be downloaded by script)
+# hand_landmarker.task
