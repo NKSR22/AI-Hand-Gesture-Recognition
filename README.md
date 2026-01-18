@@ -142,5 +142,28 @@ cd AI-Hand-Gesture-Recognition
 4. แก้ไขไฟล์: `nano main.py` (กด `Ctrl+X` > `Y` > `Enter` เพื่อบันทึก)
 5. รันโปรแกรมใหม่: `python main.py`
 
+#### 5. Stop & Manage Containers (การปิดและจัดการโปรแกรม)
+
+**1. การปิดโปรแกรม (Stop)**
+- หากรันค้างไว้ใน Terminal: กดปุ่ม `Ctrl + C` เพื่อหยุด
+- หากต้องการหยุด Container ที่รันอยู่เบื้องหลัง:
+  ```bash
+  docker-compose stop
+  ```
+
+**2. การรันโปรแกรมในครั้งถัดไป (Restart)**
+- ไม่จำเป็นต้องใช้ `--build` ซ้ำ หากไม่มีการแก้ไข Dockerfile หรือลง Library เพิ่ม
+- รันคำสั่ง:
+  ```bash
+  docker-compose up
+  ```
+
+**3. การลบโปรแกรม/ล้างเครื่อง (Clean Up)**
+- หากต้องการลบ Container ทิ้ง (เช่น เมื่อเรียนจบคาบ หรือต้องการ Reset):
+  ```bash
+  docker-compose down
+  ```
+- หากต้องการลบ Image ด้วย (เพื่อประหยัดพื้นที่): `docker-compose down --rmi all`
+
 ---
 **© 2024 Nakarin Sripanya.** All Rights Reserved.
