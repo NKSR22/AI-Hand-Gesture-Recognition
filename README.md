@@ -71,40 +71,51 @@
 
 ## 🛠 Prerequisites (เตรียมความพร้อมก่อนเริ่ม)
 
-**[EN]** Since some tools are not pre-installed on Windows, please ensure you have the following ready:
-**[TH]** เนื่องจากเครื่องคอมพิวเตอร์ทั่วไปอาจยังไม่ได้ติดตั้งเครื่องมือสำหรับพัฒนาโปรแกรม โปรดตรวจสอบและเตรียมความพร้อมดังนี้:
+### 🪟 For Windows Users (Fresh Install)
 
-### 1. Git
+**[TH]** สำหรับผู้ที่เพิ่งลง Windows ใหม่ หรือยังไม่มีเครื่องมือ ให้ทำการติดตั้งตามลำดับดังนี้:
 
-- **Check (ตรวจสอบ):** Open Terminal/CMD and type `git --version`
-- **Install (ติดตั้ง):** If not found, download and install from [git-scm.com](https://git-scm.com/download/win)
+#### 1. Python (Required)
 
-### 2. WSL (Windows Subsystem for Linux)
+- **Download:** [Python 3.x for Windows](https://www.python.org/downloads/)
+- **Installation:** Run installer > **Check "Add Python to PATH"** > Install Now.
 
-- **Required for Docker on Windows**
-- **Install (ติดตั้ง):** Open PowerShell (Run as Administrator) and type:
+#### 2. Git (Required)
 
-  ```powershell
-  wsl --install
+- **Download:** [git-scm.com](https://git-scm.com/download/win)
+
+### 🐧 For Ubuntu / Linux Users
+
+**[TH]** สำหรับระบบปฏิบัติการ Ubuntu/Linux ที่ต้องการรันผ่าน Docker:
+
+- **Docker & Docker Compose:**
+
+  ```bash
+  sudo apt-get update
+  sudo apt-get install docker.io docker-compose-plugin
   ```
 
-- *Note: You may need to restart your computer after installation.*
+- **X11 Server:** (Usually installed by default on Ubuntu Desktop)
 
-### 3. Docker Desktop
+---
 
-- **Check (ตรวจสอบ):** Open Terminal/CMD and type `docker --version`
-- **Install (ติดตั้ง):** Download from [Docker Desktop](https://www.docker.com/products/docker-desktop/)
-- *Note: Ensure Docker is set to use the WSL 2 based engine in settings.*
+## 💻 Recommended Editor: VS Code
+
+**[TH]** แนะนำให้ใช้ **Visual Studio Code** ในการพัฒนาและแก้ไขโปรเจกต์นี้
+
+**Recommended Extensions:**
+
+1. **Python (Microsoft):** สำหรับการรันและ Debug ภาษา Python
+2. **Pylance:** ช่วยตรวจสอบความถูกต้องของโค้ด
+3. **Docker (Microsoft):** (Optional) สำหรับจัดการ Container ง่ายๆ
 
 ---
 
 ## 🚀 Installation & Usage (วิธีการติดตั้งและใช้งาน)
 
-**Choose one of the following methods:** เลือกใช้วิธีใดวิธีหนึ่ง (แนะนำวิธีที่ 1 สำหรับผู้เริ่มต้น)
+### 🟢 Option 1: Run Locally (Windows / Mac / Linux)
 
-### 🟢 Option 1: Run Locally (รันบนเครื่องโดยตรง - Recommended)
-
-**Prerequisites:** Python 3.9+, Webcam
+**Recommended for Windows users** (วิธีที่แนะนำสำหรับ Windows)
 
 1. **Clone Repository:**
 
@@ -119,7 +130,7 @@
    python -m pip install -r requirements.txt
    ```
 
-3. **Run the Application:**
+3. **Run Application:**
 
    ```bash
    python main.py
@@ -127,97 +138,47 @@
 
 ---
 
-### 🐳 Option 2: Run with Docker (รันผ่าน Docker - Advanced)
+### 🐳 Option 2: Run with Docker (Ubuntu / Linux Only)
 
-**[EN]** Running GUI applications with Webcam access in Docker requires **X11 Forwarding** configuration.
-**[TH]** การรันโปรแกรมที่มี GUI และ Webcam ผ่าน Docker จำเป็นต้องตั้งค่า X11 Forwarding เพื่อให้ Container สามารถแสดงผลหน้าต่างโปรแกรมบนเครื่องของเราได้
+**[TH]** สำหรับผู้ใช้งาน Ubuntu ที่ต้องการ Environment ที่สะอาดและจัดการง่าย
 
-#### 1. Clone Repository (ดาวน์โหลดไฟล์โปรเจกต์)
-
-ก่อนจะรัน Docker Compose คุณต้องมีไฟล์โปรเจกต์ในเครื่องก่อน
+**1. Setup Display Access**
+อนุญาตให้ Docker เข้าถึงหน้าจอ (GUI):
 
 ```bash
-git clone git@github.com:NKSR22/AI-Hand-Gesture-Recognition.git
-cd AI-Hand-Gesture-Recognition
+xhost +local:docker
 ```
 
-#### 2. Setup X11/Display (การเตรียมเครื่อง)
+**2. Run with Docker Compose**
+รันโปรแกรม:
 
-*ทำการตั้งค่าตาม OS ของท่านก่อน*
+```bash
+docker compose up --build
+```
 
-**🪟 Windows (WSL2)**
+*(หากต้องการหยุด ให้กด Ctrl+C)*
 
-- **Requirement:** [VcXsrv](https://sourceforge.net/projects/vcxsrv/) & [usbipd-win](https://github.com/dorssel/usbipd-win)
-- **VcXsrv:** เปิดโปรแกรมเลือก `Multiple windows` > `Start no client` > ติ๊กถูก `Disable access control`
-- **WSL:** เชื่อมต่อกล้องผ่าน `usbipd wsl attach ...`
+**3. Edit Code**
+ไฟล์ในเครื่องจะเชื่อม (Sync) กับใน Container อัตโนมัติ สามารถแก้ไขไฟล์ `main.py` ผ่าน VS Code แล้วรันใหม่ได้เลย
 
-**🐧 Linux**
+---
 
-- **Command:** รันคำสั่ง `xhost +local:docker`
+## 🔍 Troubleshooting (การแก้ปัญหาที่พบบ่อย)
 
-> **⚠️ Note for macOS Users:**
-> Docker Desktop on macOS **does not support** direct USB webcam passthrough.
-> Please use **Option 1: Run Locally** instead.
-> (Docker บน macOS ไม่รองรับการเชื่อมต่อ Webcam โดยตรง โปรดใช้วิธีที่ 1 แทน)
+### ❌ 'python' is not recognized
 
-#### 3. Run with Docker Compose (รันโปรแกรม)
+**[TH]** หากพิมพ์คำสั่ง python แล้วเครื่องไม่รู้จัก
 
-**[TH]** ไฟล์ `docker-compose.yml` ได้เตรียมการตั้งค่าไว้แล้ว (Default สำหรับ Windows/Linux)
+- **Solution:** เกิดจากตอนลง Python ไม่ได้ติ๊ก **"Add Python to PATH"** ให้ทำการลง Python ใหม่ หรือ [เพิ่ม PATH ด้วยตนเอง](https://www.google.com/search?q=add+python+to+path+windows)
 
-**รันคำสั่ง**
+### ❌ Camera not opening / Error: cv2.error
 
-   ```bash
-   docker-compose up --build
-   ```
+**[TH]** กล้องไม่ทำงาน หรือเปิดไม่ได้
 
-#### 4. Develop & Edit Code (การพัฒนาและแก้ไขโค้ด)
-
-เนื่องจากเราได้ทำการเชื่อมต่อไฟล์ (Volume Mount) ระหว่างเครื่องจริงกับ Docker ไว้แล้ว (`.:/app`)
-
-**วิธีที่ 1: แก้ไขผ่าน VS Code (แนะนำ)**
-
-1. เปิดไฟล์ `main.py` บนเครื่องคอมพิวเตอร์ของคุณ (Windows/Mac) ด้วย VS Code หรือ Text Editor ที่ถนัด
-2. แก้ไขโค้ดและกดบันทึก (Save)
-3. รันคำสั่ง `docker-compose restart` เพื่อเริ่มโปรแกรมใหม่ด้วยโค้ดล่าสุด
-
-**วิธีที่ 2: แก้ไขใน Terminal ของ Docker**
-หากต้องการเข้าไปแก้ไขไฟล์ข้างใน Container โดยตรง:
-
-1. เช็ค ID ของ Container: `docker ps`
-2. เข้าไปใน Container: `docker exec -it ai-hand-gesture-container bash`
-3. ติดตั้ง Nano (ครั้งแรก): `apt-get update && apt-get install -y nano`
-4. แก้ไขไฟล์: `nano main.py` (กด `Ctrl+X` > `Y` > `Enter` เพื่อบันทึก)
-5. รันโปรแกรมใหม่: `python main.py`
-
-#### 5. Stop & Manage Containers (การปิดและจัดการโปรแกรม)
-
-**1. การปิดโปรแกรม (Stop)**
-
-- หากรันค้างไว้ใน Terminal: กดปุ่ม `Ctrl + C` เพื่อหยุด
-- หากต้องการหยุด Container ที่รันอยู่เบื้องหลัง:
-
-  ```bash
-  docker-compose stop
-  ```
-
-**2. การรันโปรแกรมในครั้งถัดไป (Restart)**
-
-- ไม่จำเป็นต้องใช้ `--build` ซ้ำ หากไม่มีการแก้ไข Dockerfile หรือลง Library เพิ่ม
-- รันคำสั่ง:
-
-  ```bash
-  docker-compose up
-  ```
-
-**3. การลบโปรแกรม/ล้างเครื่อง (Clean Up)**
-
-- หากต้องการลบ Container ทิ้ง (เช่น เมื่อเรียนจบคาบ หรือต้องการ Reset):
-
-  ```bash
-  docker-compose down
-  ```
-
-- หากต้องการลบ Image ด้วย (เพื่อประหยัดพื้นที่): `docker-compose down --rmi all`
+- **Solution:**
+  1. ตรวจสอบว่าไม่มีโปรแกรมอื่นใช้งานกล้องอยู่ (เช่น Zoom, Teams)
+  2. ลองถอดเสียบสาย USB กล้องใหม่
+  3. ตรวจสอบ Privacy Settings ใน Windows ว่าอนุญาตให้แอปเข้าถึงกล้องหรือไม่ (Camera Privacy Settings > Allow desktop apps to access your camera)
 
 ---
 **© 2024 Nakarin Sripanya.** All Rights Reserved.

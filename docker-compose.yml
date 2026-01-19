@@ -6,20 +6,19 @@ services:
     image: ai-hand-tracker
     container_name: ai-hand-gesture-container
 
-    # --- Configuration for Windows (WSL2) & Linux ---
-    # Supported: Works with USBIPD on Windows and native /dev/video on Linux
+    # --- Configuration for Ubuntu / Linux ---
+    # Access to Host GUI (X11) and Camera (/dev/video*)
     environment:
       - DISPLAY=${DISPLAY}
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
-      - .:/app # Mount current dir to save/load training data directly
+      - .:/app # Mount current dir (Live Reload/Edit from Host)
     devices:
       - /dev/video0:/dev/video0
     network_mode: host
 
-    # --- macOS is NOT SUPPORTED in Docker ---
-    # Reason: Docker Desktop on macOS does not support native USB Webcam passthrough.
-    # macOS users should run 'python main.py' directly on their host machine.
+    # Note: Windows users are recommended to run locally without Docker
+    # for better camera and GUI compatibility.
     # ----------------------------------------
 
     stdin_open: true # docker run -i
