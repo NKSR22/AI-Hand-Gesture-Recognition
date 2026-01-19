@@ -9,8 +9,7 @@ env/
 .env
 
 # Data files (Optional: Exclude if you want students to train from scratch)
-# hand_data.csv 
-
+hand_data.csv
 # VS Code settings
 .vscode/
 

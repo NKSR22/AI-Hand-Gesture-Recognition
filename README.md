@@ -72,113 +72,136 @@
 ## 🛠 Prerequisites (เตรียมความพร้อมก่อนเริ่ม)
 
 ### 🪟 For Windows Users (Fresh Install)
-
 **[TH]** สำหรับผู้ที่เพิ่งลง Windows ใหม่ หรือยังไม่มีเครื่องมือ ให้ทำการติดตั้งตามลำดับดังนี้:
 
-#### 1. Python (Required)
+1. **Python (Required):** [Python 3.x for Windows](https://www.python.org/downloads/) (Check "Add Python to PATH")
+2. **Git (Required):** [git-scm.com](https://git-scm.com/download/win)
 
-- **Download:** [Python 3.x for Windows](https://www.python.org/downloads/)
-- **Installation:** Run installer > **Check "Add Python to PATH"** > Install Now.
-
-#### 2. Git (Required)
-
-- **Download:** [git-scm.com](https://git-scm.com/download/win)
-
-### 🐧 For Ubuntu / Linux Users
-
-**[TH]** สำหรับระบบปฏิบัติการ Ubuntu/Linux ที่ต้องการรันผ่าน Docker:
-
-- **Docker & Docker Compose:**
-
-  ```bash
-  sudo apt-get update
-  sudo apt-get install docker.io docker-compose-plugin
-  ```
-
-- **X11 Server:** (Usually installed by default on Ubuntu Desktop)
-
----
-
-## 💻 Recommended Editor: VS Code
-
-**[TH]** แนะนำให้ใช้ **Visual Studio Code** ในการพัฒนาและแก้ไขโปรเจกต์นี้
-
-**Recommended Extensions:**
-
-1. **Python (Microsoft):** สำหรับการรันและ Debug ภาษา Python
-2. **Pylance:** ช่วยตรวจสอบความถูกต้องของโค้ด
-3. **Docker (Microsoft):** (Optional) สำหรับจัดการ Container ง่ายๆ
+### 🐧 For Linux Users
+1. **Python 3 & Pip:** `sudo apt-get update && sudo apt-get install python3 python3-pip`
+2. **Git:** `sudo apt-get install git`
 
 ---
 
 ## 🚀 Installation & Usage (วิธีการติดตั้งและใช้งาน)
 
-### 🟢 Option 1: Run Locally (Windows / Mac / Linux)
-
-**Recommended for Windows users** (วิธีที่แนะนำสำหรับ Windows)
+### 🔵 Option 1: Run with Virtual Environment (venv - Recommended Example)
+**วิธีที่ 1: ใช้งานผ่าน Virtual Environment (แนะนำสูงสุด)**
 
 1. **Clone Repository:**
-
    ```bash
    git clone git@github.com:NKSR22/AI-Hand-Gesture-Recognition.git
    cd AI-Hand-Gesture-Recognition
    ```
 
-2. **Install Dependencies:**
+2. **Create & Activate Virtual Environment:**
+   * **Windows:**
+     ```bash
+     python -m venv venv
+     .\venv\Scripts\activate
+     ```
+   * **macOS / Linux:**
+     ```bash
+     python3 -m venv venv
+     source venv/bin/activate
+     ```
 
+3. **Install Dependencies:**
    ```bash
-   python -m pip install -r requirements.txt
+   pip install -r requirements.txt
    ```
 
-3. **Run Application:**
+4. **Run the Application:**
+   ```bash
+   python main.py
+   ```
 
+5. **Deactivate Environment (เมื่อเลิกใช้งาน):**
+   ```bash
+   deactivate
+   ```
+
+---
+
+### 🟢 Option 2: Run Locally (Quick Start)
+**วิธีที่ 2: รันบนเครื่องโดยตรง (แบบรวดเร็ว)**
+
+1. **Clone & Enter Directory:**
+   ```bash
+   git clone git@github.com:NKSR22/AI-Hand-Gesture-Recognition.git
+   cd AI-Hand-Gesture-Recognition
+   ```
+
+2. **Install Dependencies (Global):**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Run the Application:**
    ```bash
    python main.py
    ```
 
 ---
 
-### 🐳 Option 2: Run with Docker (Ubuntu / Linux Only)
+### 🐳 Option 3: Run with Docker (Linux Only)
+**วิธีที่ 3: รันผ่าน Docker (แนะนำเฉพาะระบบปฏิบัติการ Linux)**
+> **⚠️ Warning for Windows & macOS Users:**
+> It is **NOT recommended** to use Docker for this project on Windows or macOS. Please use **Option 1 or 2**.
 
-**[TH]** สำหรับผู้ใช้งาน Ubuntu ที่ต้องการ Environment ที่สะอาดและจัดการง่าย
+**Instructions for Linux:**
 
-**1. Setup Display Access**
-อนุญาตให้ Docker เข้าถึงหน้าจอ (GUI):
+1. **Clone Repository:**
+   ```bash
+   git clone git@github.com:NKSR22/AI-Hand-Gesture-Recognition.git
+   cd AI-Hand-Gesture-Recognition
+   ```
 
-```bash
-xhost +local:docker
-```
+2. **Setup X11:**
+   ```bash
+   xhost +local:docker
+   ```
 
-**2. Run with Docker Compose**
-รันโปรแกรม:
+3. **Run with Docker Compose:**
+   ```bash
+   docker-compose up --build
+   ```
 
-```bash
-docker compose up --build
-```
+#### Manage Docker Containers
+- **Stop:** กด `Ctrl + C` หรือ `docker-compose stop`
+- **Restart:** `docker-compose up`
+- **Clean Up:** `docker-compose down`
 
-*(หากต้องการหยุด ให้กด Ctrl+C)*
+---
 
-**3. Edit Code**
-ไฟล์ในเครื่องจะเชื่อม (Sync) กับใน Container อัตโนมัติ สามารถแก้ไขไฟล์ `main.py` ผ่าน VS Code แล้วรันใหม่ได้เลย
+### 💻 Usage with VS Code (การใช้งานผ่าน VS Code)
+
+#### แบบที่ 1: ใช้ร่วมกับ venv (แนะนำ)
+1. เปิดโฟลเดอร์โปรเจกต์ด้วย VS Code
+2. เปิด Terminal ใน VS Code (`Ctrl + \``) และสร้าง venv ตามขั้นตอน **Option 1**
+3. **เลือก Interpreter:**
+   - กด `Ctrl + Shift + P` (Windows) หรือ `Cmd + Shift + P` (macOS)
+   - พิมพ์ `Python: Select Interpreter`
+   - เลือกตัวที่มีคำว่า `('venv': venv)`
+4. เปิดไฟล์ `main.py` แล้วกดปุ่ม ▶️ **Run** (มุมขวาบน)
+
+#### แบบที่ 2: รันโดยตรง (Direct Run)
+1. เปิดโฟลเดอร์โปรเจกต์ด้วย VS Code
+2. เปิด Terminal ใน VS Code และลง dependencies
+3. เปิดไฟล์ `main.py` แล้วกดปุ่ม ▶️ **Run**
 
 ---
 
 ## 🔍 Troubleshooting (การแก้ปัญหาที่พบบ่อย)
 
 ### ❌ 'python' is not recognized
-
-**[TH]** หากพิมพ์คำสั่ง python แล้วเครื่องไม่รู้จัก
-
-- **Solution:** เกิดจากตอนลง Python ไม่ได้ติ๊ก **"Add Python to PATH"** ให้ทำการลง Python ใหม่ หรือ [เพิ่ม PATH ด้วยตนเอง](https://www.google.com/search?q=add+python+to+path+windows)
+- **Solution:** ตอนลง Python ไม่ได้ติ๊ก **"Add Python to PATH"** ให้ทำการลง Python ใหม่ หรือเพิ่ม PATH ด้วยตนเอง
 
 ### ❌ Camera not opening / Error: cv2.error
-
-**[TH]** กล้องไม่ทำงาน หรือเปิดไม่ได้
-
 - **Solution:**
-  1. ตรวจสอบว่าไม่มีโปรแกรมอื่นใช้งานกล้องอยู่ (เช่น Zoom, Teams)
+  1. ตรวจสอบว่าไม่มีโปรแกรมอื่นใช้งานกล้องอยู่
   2. ลองถอดเสียบสาย USB กล้องใหม่
-  3. ตรวจสอบ Privacy Settings ใน Windows ว่าอนุญาตให้แอปเข้าถึงกล้องหรือไม่ (Camera Privacy Settings > Allow desktop apps to access your camera)
+  3. ตรวจสอบ Privacy Settings ใน Windows ว่าอนุญาตให้แอปเข้าถึงกล้องหรือไม่
 
 ---
 **© 2024 Nakarin Sripanya.** All Rights Reserved.

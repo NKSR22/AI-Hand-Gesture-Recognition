@@ -6,20 +6,18 @@ services:
     image: ai-hand-tracker
     container_name: ai-hand-gesture-container
 
-    # --- Configuration for Ubuntu / Linux ---
-    # Access to Host GUI (X11) and Camera (/dev/video*)
+    # --- Configuration for Linux ONLY ---
+    # This setup is optimized for Linux systems with native X11 and V4L2 support.
+    # Windows and macOS users are recommended to run the application locally (venv).
+
     environment:
       - DISPLAY=${DISPLAY}
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
-      - .:/app # Mount current dir (Live Reload/Edit from Host)
+      - .:/app # Mount current directory to sync code and data
     devices:
-      - /dev/video0:/dev/video0
-    network_mode: host
+      - /dev/video0:/dev/video0 # Access to native webcam
+    network_mode: host # Required for X11 forwarding on some Linux distros
 
-    # Note: Windows users are recommended to run locally without Docker
-    # for better camera and GUI compatibility.
-    # ----------------------------------------
-
-    stdin_open: true # docker run -i
-    tty: true # docker run -t
+    stdin_open: true # Support interactive terminal
+    tty: true # Support interactive terminal
