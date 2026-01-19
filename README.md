@@ -14,7 +14,7 @@
 
 **Developer / Instructor:** Nakarin Sripanya (อ.นครินทร์ ศรีปัญญา)  
 **Email:** <nakatin.sr@rmuti.ac.th>  
-**GitHub:** [https://github.com/NKSR22/AI-Hand-Gesture-Recognition](https://github.com/NKSR22/AI-Hand-Gesture-Recognition)
+**GitHub:** [https://github.com/NKSR22
 
 ---
 
