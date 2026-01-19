@@ -69,7 +69,36 @@
 
 ---
 
-## 🛠 Installation & Usage (วิธีการติดตั้งและใช้งาน)
+## 🛠 Prerequisites (เตรียมความพร้อมก่อนเริ่ม)
+
+**[EN]** Since some tools are not pre-installed on Windows, please ensure you have the following ready:
+**[TH]** เนื่องจากเครื่องคอมพิวเตอร์ทั่วไปอาจยังไม่ได้ติดตั้งเครื่องมือสำหรับพัฒนาโปรแกรม โปรดตรวจสอบและเตรียมความพร้อมดังนี้:
+
+### 1. Git
+
+- **Check (ตรวจสอบ):** Open Terminal/CMD and type `git --version`
+- **Install (ติดตั้ง):** If not found, download and install from [git-scm.com](https://git-scm.com/download/win)
+
+### 2. WSL (Windows Subsystem for Linux)
+
+- **Required for Docker on Windows**
+- **Install (ติดตั้ง):** Open PowerShell (Run as Administrator) and type:
+
+  ```powershell
+  wsl --install
+  ```
+
+- *Note: You may need to restart your computer after installation.*
+
+### 3. Docker Desktop
+
+- **Check (ตรวจสอบ):** Open Terminal/CMD and type `docker --version`
+- **Install (ติดตั้ง):** Download from [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+- *Note: Ensure Docker is set to use the WSL 2 based engine in settings.*
+
+---
+
+## 🚀 Installation & Usage (วิธีการติดตั้งและใช้งาน)
 
 **Choose one of the following methods:** เลือกใช้วิธีใดวิธีหนึ่ง (แนะนำวิธีที่ 1 สำหรับผู้เริ่มต้น)
 
@@ -102,13 +131,6 @@
 
 **[EN]** Running GUI applications with Webcam access in Docker requires **X11 Forwarding** configuration.
 **[TH]** การรันโปรแกรมที่มี GUI และ Webcam ผ่าน Docker จำเป็นต้องตั้งค่า X11 Forwarding เพื่อให้ Container สามารถแสดงผลหน้าต่างโปรแกรมบนเครื่องของเราได้
-
-#### 0. Install Docker (ติดตั้ง Docker)
-
-ก่อนเริ่มใช้งาน ต้องติดตั้ง Docker Desktop บนเครื่องของท่าน
-
-- **Download:** [Docker Desktop for Windows/Mac/Linux](https://www.docker.com/products/docker-desktop/)
-- **Verify:** เปิด Terminal/CMD แล้วพิมพ์คำสั่ง `docker --version` หากขึ้นเลขเวอร์ชันแสดงว่าติดตั้งสำเร็จ
 
 #### 1. Clone Repository (ดาวน์โหลดไฟล์โปรเจกต์)
 
