@@ -62,4 +62,6 @@
 - [Lab Instructions & Assignments](https://github.com/NKSR22/AI-Hand-Gesture-Recognition/wiki/Lab-Manual)
 
 ---
-**© 2024 Nakarin Sripanya.** All Rights Reserved.
+## ⚖️ Copyright
+Copyright © 2024 Mr.NAKARIN SRIPANYD All Rights Reserved.  
+For educational purposes only at RMUTI Sakon Nakhon.
