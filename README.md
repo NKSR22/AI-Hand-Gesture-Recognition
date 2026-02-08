@@ -8,7 +8,7 @@
 ### 🌐 Project Information (ข้อมูลโปรเจกต์)
 
 **Subject:** Introduction to Artificial Intelligence (รายวิชาปัญญาประดิษฐ์เบื้องต้น)  
-**Program:** B.Ind.Tech (Intelligence Control Systems) / หลักสูตร อส.บ. ระบบควบคุมอัจฉริยะ  
+**Program:** B.Ind.Tech (Electrical Technology and Intelligence Control Systems) / หลักสูตร อส.บ. เทคโนโลยีไฟฟ้าและระบบควบคุมอัจฉริยะ  
 **Department:** Electrical Engineering, Faculty of Industry and Technology  
 **University:** Rajamangala University of Technology Isan, Sakon Nakhon Campus
 
